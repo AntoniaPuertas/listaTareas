@@ -1,7 +1,7 @@
 //colores
-const colorUrgente = '#128997';
-const colorObligatoria = '#128998';
-const colorOpcional = '#129001';
+const colorUrgente = 'rgb(238, 51, 51)';
+const colorObligatoria = 'rgb(92, 97, 238)';
+const colorOpcional = 'rgb(81, 198, 79)';
 
 document.getElementById("buttonAdd").addEventListener('click', crearTarea);
 
@@ -20,19 +20,27 @@ function crearTarea(){
 
     const tarea = {
         texto: textoTarea,
-        tipo: tipoTarea
+        tipo: tipoTarea,
+        realizada: false
     }
+
+    let iconoTipo = '&#129001;';
+    if(tarea.tipo === 'obligatoria'){
+        iconoTipo = '&#128998;';
+    }else if(tarea.tipo === 'urgente'){
+        iconoTipo = '&#128997;';
+    }
+
     //crear un li con la tarea y añadirlo al ul
     const li = document.createElement('li');
-    li.innerHTML = `${tarea.texto}
-                    <button class="eliminar">🗑️</button>`;
+    li.innerHTML = `
+        <div>
+        <input type="checkbox" class="tareaRealizada"> 
+        ${iconoTipo} 
+        ${tarea.texto}
+        </div>
+        <button class="eliminar">🗑️</button>`;
     
-
-    if(tarea.tipo === "obligatoria"){
-        li.style.backgroundColor = colorObligatoria;
-    }else if(tarea.tipo === "urgente"){
-        li.style.backgroundColor = colorUrgente;
-    }
 
     document.getElementById("listaTareas").appendChild(li);
     
@@ -40,6 +48,15 @@ function crearTarea(){
         li.remove();
     })
 
+    li.querySelector('.tareaRealizada').addEventListener('click', function(){
+        if(li.querySelector('.tareaRealizada').checked){
+            li.style.opacity = '0.5'
+            tarea.realizada = false;
+        }else{
+            li.style.opacity = '1'
+            tarea.realizada = true;
+        }
+    })
 
     document.getElementById("inputTarea").value = '';
 }

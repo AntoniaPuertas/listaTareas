@@ -13,7 +13,8 @@ body{
 h1{
     text-align: center;
 }
-input{
+
+input[type="text"]{
     width: 100%;
     padding: 0.5rem;
 }
@@ -43,7 +44,7 @@ li{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(191, 233, 144);
+    background-color: rgb(211, 236, 183);
 }
 .eliminar{
     background-color: rgb(193, 9, 9);
